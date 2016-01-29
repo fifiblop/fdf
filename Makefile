@@ -6,7 +6,7 @@
 #    By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/29 14:39:00 by pdelefos          #+#    #+#              #
-#    Updated: 2016/01/29 16:16:58 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/01/29 17:58:00 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ SRC_NAME = main.c
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
+PATH_INC = includes
 PATH_LIBFT = libft/includes
 LIBFT = libft/libft.a
-
 MINILIBX = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
 
 CC = clang
@@ -28,7 +28,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
-INC = $(addprefix -I, $(PATH_LIBFT))
+INC = $(addprefix -I,$(PATH_INC) $(PATH_LIBFT))
 
 all: $(NAME)
 

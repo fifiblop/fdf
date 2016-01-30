@@ -6,7 +6,7 @@
 #    By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 15:22:44 by pdelefos          #+#    #+#              #
-#    Updated: 2016/01/29 14:32:44 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/01/30 15:05:51 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC_NAME = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 			ft_strnstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
 			ft_strstr.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
 			ft_lstiter.c ft_lstmap.c ft_abs.c ft_strupcase.c ft_strlowcase.c \
-			ft_lstsize.c ft_lst_pback.c ft_itoa_base.c get_next_line.c
+			ft_lstsize.c ft_lst_pback.c ft_itoa_base.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -41,27 +41,38 @@ SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
 INC = $(addprefix -I, $(INC_PATH)/)
 
+NO_COLOR = \x1b[0m
+GREEN = \x1b[32;01m
+RED = \x1b[31;01m
+BLUE = \x1b[34;01m
+MAGENTA = \x1b[35;01m
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(LIB_NAME) $(OBJ)
-	ranlib $(LIB_NAME)
+	@ar rc $(LIB_NAME) $(OBJ)
+	@echo "$(GREEN)AR RC$(NO_COLOR) $(MAGENTA)>>$(NO_COLOR) $(OBJ_PATH) $(MAGENTA)>>$(NO_COLOR) $(NAME)"
+	@ranlib $(LIB_NAME)
+	@echo "$(GREEN)RANLIB$(NO_COLOR) $(MAGENTA)>>$(NO_COLOR) $(LIB_NAME)"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+	@echo "$(GREEN)CC$(NO_COLOR) $(MAGENTA)>>$(NO_COLOR) $< $(MAGENTA)>>$(NO_COLOR) $@"
 
 clean: 
-	rm -fv $(OBJ)
+	@rm -f $(OBJ)
+	@echo "$(RED)RM >>$(NO_COLOR) $(OBJ_PATH)"
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 
 fclean: clean
-	rm -fv $(NAME)
+	@rm -f $(NAME)
+	@echo "$(RED)RM >>$(NO_COLOR) $(NAME)"
 
 re: fclean all
 
 norme:
-	norminette $(SRC)
-	norminette $(INC_PATH)/libft.h
+	norminette $(SRC_NAME)
+	norminette $(INC)libft.h
 
 .PHONY: all clean fclean re norme

@@ -6,12 +6,12 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:06:37 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/01/30 19:05:36 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/01/31 18:33:55 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include <libft.h>
 #include "mlx.h"
 #include "fdf.h"
 
@@ -51,6 +51,13 @@ void	draw_line(t_mlx_info fdf, t_coord a, t_coord b)
 	mlx_pixel_put(fdf.mlx, fdf.win, b.x, b.y, 0x00FFFFFF);
 }
 
+/*int		main(int ac, char **av)*/
+/*{*/
+/*if (ac == 2)*/
+/*parsing(av[1]);*/
+/*return (0);*/
+/*}*/
+
 int		main(void)
 {
 	t_mlx_info	fdf;
@@ -58,7 +65,7 @@ int		main(void)
 	t_coord		b;
 
 	fdf.win_width = 800;
-	fdf.win_height = 400;
+	fdf.win_height = 800;
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, fdf.win_width, fdf.win_height, "fdf");
 	a.x = 10;

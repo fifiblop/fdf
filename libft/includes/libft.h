@@ -6,13 +6,16 @@
 /*   By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 11:14:35 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/01/29 14:33:53 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/01/31 14:00:51 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
 # include <string.h>
 
 # define BUFF_SIZE 4096

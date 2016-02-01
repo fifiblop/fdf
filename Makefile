@@ -6,14 +6,15 @@
 #    By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/29 14:39:00 by pdelefos          #+#    #+#              #
-#    Updated: 2016/01/30 17:39:12 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/01/31 18:34:34 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 SRC_PATH = src
-SRC_NAME = main.c
+SRC_NAME = main.c \
+		   parsing.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -40,8 +41,8 @@ all: title makelib $(NAME) end
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(INC) $(LIBFT) $(MINILIBX) $(OBJ) -o $(NAME) 
-	@echo "$(GREEN)CC$(NO_COLOR) libft minilibx $(MAGENTA)>>$(NO_COLOR) \
-	$(OBJ_PATH) $(MAGENTA)>>$(NO_COLOR) $(NAME)"
+	@echo "$(RED)CC >>$(NO_COLOR) $(CFLAGS) libft minilibx $(RED)>>$(NO_COLOR) \
+	$(OBJ_PATH) $(RED)>>$(NO_COLOR) $(NAME)"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -79,6 +80,6 @@ end:
 	@echo "$(BLUE)-------------------------------------$(NO_COLOR)"
 norme:
 	norminette $(SRC)
-	norminette fdf.h
+	norminette $(PATH_INC)/fdf.h
 
 .PHONY: all lib clean fclean gfclean re norme makelib title end

@@ -6,7 +6,7 @@
 #    By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 15:22:44 by pdelefos          #+#    #+#              #
-#    Updated: 2016/01/30 15:05:51 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/01/31 13:10:36 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC_NAME = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 			ft_strnstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
 			ft_strstr.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
 			ft_lstiter.c ft_lstmap.c ft_abs.c ft_strupcase.c ft_strlowcase.c \
-			ft_lstsize.c ft_lst_pback.c ft_itoa_base.c
+			ft_lstsize.c ft_lst_pback.c ft_itoa_base.c get_next_line.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

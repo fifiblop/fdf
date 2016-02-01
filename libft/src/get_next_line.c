@@ -5,135 +5,57 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/27 16:53:20 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/01/29 14:31:42 by pdelefos         ###   ########.fr       */
+/*   Created: 2016/01/29 18:46:27 by pdelefos          #+#    #+#             */
+/*   Updated: 2016/01/31 13:59:10 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
-#include <stdlib.h>
-
 #include "libft.h"
 
-/*
-** Concat line et str jusqu'au premier \n
-** contenu dans str, s'il existe.
-*/
-
-static void		add_to_line(char **line, char *str)
+static int	add_line(char **line, char *stock)
 {
-	int		i;
-	int		len;
-	char	*tmp;
+	char *nl;
 
-	i = 0;
-	if (*line)
+	nl = ft_strchr(stock, '\n');
+	if (nl)
 	{
-		tmp = ft_strdup(*line);
-		free(*line);
-		len = ft_strlen(tmp) + ft_strlen(str);
-		*line = (char*)ft_memalloc(len + 1);
-		ft_strcpy(*line, tmp);
-		free(tmp);
-		while ((*line)[i])
-			i++;
-	}
-	else
-	{
-		len = ft_strlen(str);
-		*line = (char*)ft_memalloc(len + 1);
-	}
-	while (*str && *str != '\n')
-		(*line)[i++] = *str++;
-	(*line)[i] = '\0';
-}
-
-/*
-** Renvoi ce qui se trouve apres le \n
-** Ou renvoi NULL
-*/
-
-static char		*get_after_nl(char *str)
-{
-	while (*str && *str != '\n')
-		str++;
-	if (*str == '\n' && str[1] != '\0')
-		return (ft_strdup(++str));
-	else
-		return (NULL);
-}
-
-/*
-** line recupere after_nl jusqu'au \n
-** after_nl recupere se qui se trouve apres \n
-*/
-
-static int		init_next_line(char **line, char **after_nl)
-{
-	char *tmp;
-
-	if (*after_nl && ft_strchr(*after_nl, '\n'))
-	{
-		add_to_line(line, *after_nl);
-		tmp = *after_nl;
-		*after_nl = get_after_nl(tmp);
-		free(tmp);
+		*nl = '\0';
+		*line = ft_strdup(stock);
+		nl++;
+		ft_memmove(stock, nl, ft_strlen(nl) + 1);
 		return (1);
 	}
-	else if (*after_nl && !ft_strchr(*after_nl, '\n'))
+	if (ft_strlen(stock) > 0)
 	{
-		*line = ft_strdup(*after_nl);
-		free(*after_nl);
-		after_nl = NULL;
+		*line = ft_strdup(stock);
+		*stock = '\0';
+		return (1);
 	}
 	return (0);
 }
 
-/*
-** Check si line existe et l'initialise
-** check si BUFF_SIZE ou fd sont invalide
-** Initalise line a la ligne suivante
-*/
-
-static int		check_last_line(char **line, char **after_nl, int const fd)
+int			get_next_line(int const fd, char **line)
 {
-	if (line)
-		*line = NULL;
-	else
-		return (-1);
-	if (BUFF_SIZE <= 0 || fd < 0)
-		return (-1);
-	if (init_next_line(line, after_nl))
-		return (1);
-	return (0);
-}
+	static char	*stock = NULL;
+	char		buff[BUFF_SIZE + 1];
+	char		*tmp;
+	long long	ret;
 
-int				get_next_line(int const fd, char **line)
-{
-	int			check;
-	int			ret;
-	char		*buff;
-	static char	*after_nl = NULL;
-
-	check = check_last_line(line, &after_nl, fd);
-	if (check != 0)
-		return (check);
-	buff = ft_strnew(BUFF_SIZE);
-	while ((ret = read(fd, buff, BUFF_SIZE)) > 0 && !ft_strchr(buff, '\n'))
+	if (!line || fd < 0)
+		return (-1);
+	if (stock == NULL)
+		stock = ft_strnew(0);
+	while (!ft_strchr(stock, '\n'))
 	{
-		add_to_line(line, buff);
-		ft_bzero(buff, BUFF_SIZE);
-	}
-	if (ret > 0)
-	{
+		ret = read(fd, buff, BUFF_SIZE);
+		if (ret == -1)
+			return (ret);
+		if (ret == 0)
+			return (add_line(line, stock));
 		buff[ret] = '\0';
-		add_to_line(line, buff);
-		after_nl = get_after_nl(buff);
+		tmp = ft_strjoin(stock, buff);
+		ft_strdel(&stock);
+		stock = tmp;
 	}
-	free(buff);
-	ret = (ret > 0) ? 1 : ret;
-	ret = (ret == 0 && *line != NULL) ? 1 : ret;
-	return (ret);
+	return (add_line(line, stock));
 }

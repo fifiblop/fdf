@@ -6,7 +6,7 @@
 #    By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/29 14:39:00 by pdelefos          #+#    #+#              #
-#    Updated: 2016/01/31 18:34:34 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/02/03 12:12:37 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,8 @@ all: title makelib $(NAME) end
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(INC) $(LIBFT) $(MINILIBX) $(OBJ) -o $(NAME) 
-	@echo "$(RED)CC >>$(NO_COLOR) $(CFLAGS) libft minilibx $(RED)>>$(NO_COLOR) \
-	$(OBJ_PATH) $(RED)>>$(NO_COLOR) $(NAME)"
+	@echo "$(GREEN)CC >>$(NO_COLOR) $(CFLAGS) libft minilibx $(GREEN)>>$(NO_COLOR) \
+	$(OBJ_PATH) $(GREEN)>> $(NAME)$(NO_COLOR)"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true

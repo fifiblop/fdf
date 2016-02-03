@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/02 16:34:29 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/03 12:47:00 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ typedef struct		s_coord
 	int				y;
 }					t_coord;
 
-int					**parsing(char *filename);
+typedef struct		s_grid
+{
+	int				**grid;
+	int				height;
+	int				width;
+}					t_grid;
+
+t_grid				parsing(char *filename);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 14:36:31 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/02 18:33:24 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/03 18:41:39 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		get_width(char *filename, int no_line)
 	if (no_line < 1 || no_line > get_height(filename))
 		return (0);
 	fd = open(filename, O_RDONLY);
-	while(j++ < no_line)
+	while (j++ < no_line)
 		get_next_line(fd, &line);
 	tab = ft_strsplit(line, ' ');
 	free(line);
@@ -52,28 +52,47 @@ int		get_width(char *filename, int no_line)
 	return (i);
 }
 
-int		**parsing(char *filename)
+int		ft_isnum(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 0)
+		{
+			ft_putchar(str[i]);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+t_grid	parsing(char *filename)
 {
 	int		fd;
 	char	*line;
 	char	**tab;
-	int		**map;
-	int		width;
+	t_grid	map;
 	int		i;
 	int		j;
 
-	map = (int**)ft_memalloc(sizeof(int*) * get_height(filename));
+	map.height = get_height(filename);
+	map.grid = (int**)ft_memalloc(sizeof(int*) * map.height);
 	fd = open(filename, O_RDONLY);
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		width = get_width(filename, i + 1);
-		map[i] = (int*)malloc(sizeof(int) * width);
+		map.width = get_width(filename, i + 1);
+		map.grid[i] = (int*)malloc(sizeof(int) * map.width);
 		tab = ft_strsplit(line, ' ');
 		j = 0;
 		while (tab[j])
 		{
-			map[i][j] = ft_atoi(tab[j]);
+			if (ft_isnum(ft_strtrim(tab[j])) == 0)
+				ft_putendl("error");
+			map.grid[i][j] = ft_atoi(tab[j]);
 			j++;
 		}
 		free(tab);

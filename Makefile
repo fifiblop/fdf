@@ -6,7 +6,7 @@
 #    By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/29 14:39:00 by pdelefos          #+#    #+#              #
-#    Updated: 2016/02/03 12:12:37 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/02/04 16:31:36 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,16 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 PATH_INC = includes
 PATH_LIBFT = libft/includes
 LIBFT = libft/libft.a
-MINILIBX = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
+PATH_MINILIBX = minilibx/
+MINILIBX = minilibx/libmlx.a -lmlx -framework OpenGL -framework AppKit
+#MINILIBX = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
 
 CC = clang
 CFLAGS = -Wall -Werror -Wextra
 
 SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
-INC = $(addprefix -I,$(PATH_INC) $(PATH_LIBFT))
+INC = $(addprefix -I,$(PATH_INC) $(PATH_LIBFT) $(PATH_MINILIBX))
 
 NO_COLOR = \x1b[0m
 GREEN = \x1b[32;01m
@@ -37,7 +39,7 @@ RED = \x1b[31;01m
 BLUE = \x1b[34;01m
 MAGENTA = \x1b[35;01m
 
-all: title makelib $(NAME) end
+all: title maklibft makminilibx $(NAME) end
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(INC) $(LIBFT) $(MINILIBX) $(OBJ) -o $(NAME) 
@@ -49,8 +51,11 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 	@echo "$(GREEN)CC$(NO_COLOR) $(MAGENTA)>>$(NO_COLOR) $< $(MAGENTA)>>$(NO_COLOR) $@"
 
-makelib:
+maklibft:
 	@make -C libft
+
+makminilibx:
+	@make -C minilibx
 
 clean:
 	@rm -f $(OBJ)
@@ -63,6 +68,7 @@ fclean: clean
 
 gfclean: fclean
 	make fclean -C libft
+	make clean -C minilibx
 
 re: fclean all
 

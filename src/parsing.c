@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 14:36:31 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/03 18:41:39 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/04 11:12:05 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,28 +75,27 @@ t_grid	parsing(char *filename)
 	char	*line;
 	char	**tab;
 	t_grid	map;
-	int		i;
-	int		j;
+	t_coord	a;
 
 	map.height = get_height(filename);
 	map.grid = (int**)ft_memalloc(sizeof(int*) * map.height);
 	fd = open(filename, O_RDONLY);
-	i = 0;
+	a.x = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		map.width = get_width(filename, i + 1);
-		map.grid[i] = (int*)malloc(sizeof(int) * map.width);
+		map.width = get_width(filename, a.x + 1);
+		map.grid[a.x] = (int*)malloc(sizeof(int) * map.width);
 		tab = ft_strsplit(line, ' ');
-		j = 0;
-		while (tab[j])
+		a.y = 0;
+		while (tab[a.y])
 		{
-			if (ft_isnum(ft_strtrim(tab[j])) == 0)
+			if (ft_isnum(ft_strtrim(tab[a.y])) == 0)
 				ft_putendl("error");
-			map.grid[i][j] = ft_atoi(tab[j]);
-			j++;
+			map.grid[a.x][a.y] = ft_atoi(tab[a.y]);
+			a.y++;
 		}
 		free(tab);
-		i++;
+		a.x++;
 	}
 	close(fd);
 	return (map);

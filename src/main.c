@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:06:37 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/03 18:14:12 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/04 11:12:34 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	draw_grid(t_mlx_info fdf, t_grid map)
 {
 	int		i;
 	int		j;
-	/*int		x;*/
-	/*int		y;*/
+	int		x;
+	int		y;
 
 	i = 0;
 	while (i < map.height)
@@ -60,15 +60,15 @@ void	draw_grid(t_mlx_info fdf, t_grid map)
 		j = 0;
 		while (j < map.width)
 		{
-			/*x = (j - i) * 32;*/
+			x = (j - i) * 32;
 			/*ft_putstr("x: ");*/
 			/*ft_putnbr(x);*/
-			/*y = (j + i) * 16;*/
+			y = (j + i) * 16;
 			/*ft_putstr(" y: ");*/
 			/*ft_putnbr(y);*/
 			/*ft_putchar('\n');*/
-			/*mlx_pixel_put(fdf.mlx, fdf.win, x, y, COLOR_RED);*/
-			mlx_pixel_put(fdf.mlx, fdf.win, j * T_SIZE, i * T_SIZE, COLOR_RED);
+			mlx_pixel_put(fdf.mlx, fdf.win, x + 370, y + 250, COLOR_WHITE);
+			/*mlx_pixel_put(fdf.mlx, fdf.win, (j * T_SIZE) + 220, (i * T_SIZE) + 300, COLOR_WHITE);*/
 			j++;
 		}
 		i++;

@@ -6,12 +6,16 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 14:36:31 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/04 11:12:05 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/09 16:13:57 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fdf.h"
+
+/*
+** Renvoi le nombre de lignes du ficher
+*/
 
 int		get_height(char *filename)
 {
@@ -27,6 +31,11 @@ int		get_height(char *filename)
 	close(fd);
 	return (i);
 }
+
+/*
+** Renvoi le nombre de caracteres de la ligne
+** passe en parametre
+*/
 
 int		get_width(char *filename, int no_line)
 {
@@ -52,24 +61,26 @@ int		get_width(char *filename, int no_line)
 	return (i);
 }
 
-int		ft_isnum(char *str)
-{
-	int i;
+/*
+** initialise la hauteur et alloue la map
+*/
 
-	i = 0;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]) == 0)
-		{
-			ft_putchar(str[i]);
-			return (0);
-		}
-		i++;
-	}
-	return (1);
+t_grid	init_grid(char *filename)
+{
+	t_grid map;
+
+	map.height = get_height(filename);
+	map.grid = (int**)ft_memalloc(sizeof(int*) * map.height);
+	return (map);
 }
 
-t_grid	parsing(char *filename)
+/*
+** Parse le fichier passee en parametre
+** et le stock dans un tableau d'int
+** contenu dans une structure
+*/
+
+t_grid	parsefile(char *filename)
 {
 	int		fd;
 	char	*line;
@@ -77,22 +88,21 @@ t_grid	parsing(char *filename)
 	t_grid	map;
 	t_coord	a;
 
-	map.height = get_height(filename);
-	map.grid = (int**)ft_memalloc(sizeof(int*) * map.height);
+	map = init_grid(filename);
 	fd = open(filename, O_RDONLY);
 	a.x = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		map.width = get_width(filename, a.x + 1);
-		map.grid[a.x] = (int*)malloc(sizeof(int) * map.width);
+		ft_putnbr(map.width);
+		ft_putchar('\n');
+		map.grid[a.x] = (int*)ft_memalloc(sizeof(int) * map.width);
 		tab = ft_strsplit(line, ' ');
 		a.y = 0;
 		while (tab[a.y])
 		{
-			if (ft_isnum(ft_strtrim(tab[a.y])) == 0)
-				ft_putendl("error");
-			map.grid[a.x][a.y] = ft_atoi(tab[a.y]);
-			a.y++;
+			/*check_values(tab[a.y]);*/
+			map.grid[a.x][a.y] = ft_atoi(tab[a.y++]);
 		}
 		free(tab);
 		a.x++;

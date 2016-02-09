@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:06:37 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/04 11:12:34 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/09 15:58:53 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ int		main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		map = parsefile(av[1]);
 		fdf.win_width = 1000;
 		fdf.win_height = 1000;
 		fdf.mlx = mlx_init();
 		fdf.win = mlx_new_window(fdf.mlx, fdf.win_width, fdf.win_height, "fdf");
-		map = parsing(av[1]);
 		draw_grid(fdf, map);
 		mlx_key_hook(fdf.win, my_func, &fdf);
 		mlx_loop(fdf.mlx);

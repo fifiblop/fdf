@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/03 12:47:00 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/09 15:33:28 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_grid
 	int				width;
 }					t_grid;
 
-t_grid				parsing(char *filename);
+t_grid				parsefile(char *filename);
+void				check_values(char *value);
 
 #endif

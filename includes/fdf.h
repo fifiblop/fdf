@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/10 15:23:33 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/10 19:37:20 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void				check_values(char *value);
 
 int					handle_keys(int key, void *param);
 
-void				*draw_grid(t_mlx fdf, t_map map);
+void				draw_grid(t_mlx fdf, t_map map);
 
 #endif

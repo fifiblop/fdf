@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:03:29 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/09 15:23:23 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/10 14:51:30 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		ft_isnum(char *str)
 	int i;
 
 	i = 0;
+	if (str[0] == '-')
+		i++;
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]) == 0)

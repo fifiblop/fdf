@@ -6,90 +6,31 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:06:37 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/09 15:58:53 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/10 15:25:19 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <libft.h>
 #include "mlx.h"
 #include "fdf.h"
 
-#define	COLOR_RED 0xd42121
-#define COLOR_WHITE 0xFFFFFF
-#define COLOR_BLUE 0x5eabcf
-#define T_SIZE 32
-#define KEY_ESC 53
-
-int		my_func(int key, void *param)
-{
-	(void)param;
-	if (key == KEY_ESC)
-		exit(1);
-	return (0);
-}
-
-void	draw_square(t_mlx_info fdf, t_coord a, int width, int color)
-{
-	int		x;
-	int		y;
-
-	y = a.y;
-	while (y < (width + a.y))
-	{
-		x = a.x;
-		while (x < (width + a.x))
-		{
-			mlx_pixel_put(fdf.mlx, fdf.win, x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	draw_grid(t_mlx_info fdf, t_grid map)
-{
-	int		i;
-	int		j;
-	int		x;
-	int		y;
-
-	i = 0;
-	while (i < map.height)
-	{
-		j = 0;
-		while (j < map.width)
-		{
-			x = (j - i) * 32;
-			/*ft_putstr("x: ");*/
-			/*ft_putnbr(x);*/
-			y = (j + i) * 16;
-			/*ft_putstr(" y: ");*/
-			/*ft_putnbr(y);*/
-			/*ft_putchar('\n');*/
-			mlx_pixel_put(fdf.mlx, fdf.win, x + 370, y + 250, COLOR_WHITE);
-			/*mlx_pixel_put(fdf.mlx, fdf.win, (j * T_SIZE) + 220, (i * T_SIZE) + 300, COLOR_WHITE);*/
-			j++;
-		}
-		i++;
-	}
-}
-
 int		main(int ac, char **av)
 {
-	t_mlx_info	fdf;
-	t_grid		map;
+	t_mlx		fdf;
+	t_map		map;
+	void		*img;
 
 	if (ac == 2)
 	{
 		map = parsefile(av[1]);
-		fdf.win_width = 1000;
-		fdf.win_height = 1000;
-		fdf.mlx = mlx_init();
-		fdf.win = mlx_new_window(fdf.mlx, fdf.win_width, fdf.win_height, "fdf");
-		draw_grid(fdf, map);
-		mlx_key_hook(fdf.win, my_func, &fdf);
-		mlx_loop(fdf.mlx);
+		fdf.win_w = 1000;
+		fdf.win_h = 1000;
+		fdf.mlx_ptr = mlx_init();
+		fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, fdf.win_w, fdf.win_h, "fdf");
+		img = draw_grid(fdf, map);
+		mlx_put_image_to_window(fdf.mlx_ptr, fdf.win_ptr, img, 0, 0);
+		mlx_key_hook(fdf.win_ptr, handle_keys, &fdf);
+		mlx_loop(fdf.mlx_ptr);
 	}
 	return (0);
 }

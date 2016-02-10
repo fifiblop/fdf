@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/09 15:33:28 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/10 15:23:33 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-typedef struct		s_mlx_info
+typedef struct		s_mlx
 {
-	void			*mlx;
-	void			*win;
-	unsigned int	win_width;
-	unsigned int	win_height;
-}					t_mlx_info;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	unsigned int	win_w;
+	unsigned int	win_h;
+}					t_mlx;
 
 typedef struct		s_coord
 {
@@ -30,14 +30,24 @@ typedef struct		s_coord
 	int				y;
 }					t_coord;
 
-typedef struct		s_grid
+typedef struct		s_map
 {
 	int				**grid;
 	int				height;
 	int				width;
-}					t_grid;
+}					t_map;
 
-t_grid				parsefile(char *filename);
+# define COLOR_RED 0xd42121
+# define COLOR_WHITE 0xFFFFFF
+# define COLOR_BLUE 0x5eabcf
+# define T_SIZE 32
+# define KEY_ESC 53
+
+t_map				parsefile(char *filename);
 void				check_values(char *value);
+
+int					handle_keys(int key, void *param);
+
+void				*draw_grid(t_mlx fdf, t_map map);
 
 #endif

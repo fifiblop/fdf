@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 14:36:31 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/09 16:13:57 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/10 15:00:04 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int		get_width(char *filename, int no_line)
 ** initialise la hauteur et alloue la map
 */
 
-t_grid	init_grid(char *filename)
+t_map	init_grid(char *filename)
 {
-	t_grid map;
+	t_map map;
 
 	map.height = get_height(filename);
 	map.grid = (int**)ft_memalloc(sizeof(int*) * map.height);
@@ -80,12 +80,12 @@ t_grid	init_grid(char *filename)
 ** contenu dans une structure
 */
 
-t_grid	parsefile(char *filename)
+t_map	parsefile(char *filename)
 {
 	int		fd;
 	char	*line;
 	char	**tab;
-	t_grid	map;
+	t_map	map;
 	t_coord	a;
 
 	map = init_grid(filename);
@@ -94,14 +94,12 @@ t_grid	parsefile(char *filename)
 	while (get_next_line(fd, &line) > 0)
 	{
 		map.width = get_width(filename, a.x + 1);
-		ft_putnbr(map.width);
-		ft_putchar('\n');
 		map.grid[a.x] = (int*)ft_memalloc(sizeof(int) * map.width);
 		tab = ft_strsplit(line, ' ');
 		a.y = 0;
 		while (tab[a.y])
 		{
-			/*check_values(tab[a.y]);*/
+			check_values(tab[a.y]);
 			map.grid[a.x][a.y] = ft_atoi(tab[a.y++]);
 		}
 		free(tab);

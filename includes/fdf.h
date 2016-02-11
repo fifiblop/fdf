@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/10 19:37:20 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/11 17:44:12 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ typedef struct		s_mlx
 	unsigned int	win_w;
 	unsigned int	win_h;
 }					t_mlx;
+
+typedef struct		s_img
+{
+	void			*img;
+	void			*img_ptr;
+	int				endian;
+	int				bits_per_pixel;
+	int				linesize;
+}					t_img;
 
 typedef struct		s_coord
 {
@@ -48,6 +57,7 @@ void				check_values(char *value);
 
 int					handle_keys(int key, void *param);
 
-void				draw_grid(t_mlx fdf, t_map map);
+//t_img				draw_grid(t_mlx fdf, t_map map);
+void	*draw_grid(t_mlx fdf, t_map map);
 
 #endif

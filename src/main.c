@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:06:37 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/10 19:38:17 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/11 17:45:16 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		main(int ac, char **av)
 {
 	t_mlx		fdf;
 	t_map		map;
+	void		*img;
 
 	if (ac == 2)
 	{
@@ -26,8 +27,9 @@ int		main(int ac, char **av)
 		fdf.win_h = 1000;
 		fdf.mlx_ptr = mlx_init();
 		fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, fdf.win_w, fdf.win_h, "fdf");
-		draw_grid(fdf, map);
-		mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 2 ,0, COLOR_RED, "ESC TO QUIT");
+		img = draw_grid(fdf, map);
+		mlx_put_image_to_window(fdf.mlx_ptr, fdf.win_ptr, img, 500, 500);
+		mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 2 ,0, COLOR_WHITE, "ESC TO QUIT");
 		mlx_key_hook(fdf.win_ptr, handle_keys, &fdf);
 		mlx_loop(fdf.mlx_ptr);
 	}

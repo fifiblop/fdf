@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 14:36:31 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/10 15:00:04 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/12 17:16:25 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_map	init_grid(char *filename)
 {
 	t_map map;
 
+	map.height = (int)ft_memalloc(sizeof(int));
+	map.width = (int)ft_memalloc(sizeof(int));
 	map.height = get_height(filename);
 	map.grid = (int**)ft_memalloc(sizeof(int*) * map.height);
 	return (map);
@@ -90,10 +92,10 @@ t_map	parsefile(char *filename)
 
 	map = init_grid(filename);
 	fd = open(filename, O_RDONLY);
+	map.width = get_width(filename, 1);
 	a.x = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		map.width = get_width(filename, a.x + 1);
 		map.grid[a.x] = (int*)ft_memalloc(sizeof(int) * map.width);
 		tab = ft_strsplit(line, ' ');
 		a.y = 0;

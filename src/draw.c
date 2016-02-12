@@ -6,14 +6,20 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:29:09 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/11 17:44:01 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/12 18:39:59 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "mlx.h"
 #include "fdf.h"
 
-void	img_put_pixel(void *addr, int x, int y, int color, int linesize)
+unsigned long	createRGB(int r, int g, int b)
+{
+	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+}
+
+void	put_pixel_to_img(void *addr, int x, int y, int color, int linesize)
 {
 	((int*)(addr))[y * linesize + x] = color;
 }
@@ -22,25 +28,25 @@ void	*draw_grid(t_mlx fdf, t_map map)
 {
 	int		i;
 	int		j;
-	void	*img;
 	int		endian;
 	int		linesize;
 	int		bits_per_pixel;
 	void	*addr;
+	void	*img;
 
-	(void)map;
+	map.tile = 32;
 	endian = 0;
-	linesize = 100;
+	linesize = (map.width * map.tile) * 2;
 	bits_per_pixel = 32;
-	img = mlx_new_image(fdf.mlx_ptr, 100, 100);
+	img = mlx_new_image(fdf.mlx_ptr, (map.width * map.tile) * 2, map.height * map.tile);
 	addr = mlx_get_data_addr(img, &bits_per_pixel, &linesize, &endian);
 	i = 0;
-	while (i < 100)
+	while (i < map.height)
 	{
 		j = 0;
-		while (j < 100)
+		while (j < map.width)
 		{
-			img_put_pixel(addr, j, i, COLOR_RED, linesize);
+			put_pixel_to_img(addr, (j - i) * 32, (j + i) * 16, COLOR_RED, (map.width * map.tile) * 2);
 			j++;
 		}
 		i++;

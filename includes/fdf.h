@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/11 17:44:12 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/12 14:29:08 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include <fcntl.h>
 # include <stdlib.h>
+
+# define COLOR_RED 0xd42121
+# define COLOR_WHITE 0xFFFFFF
+# define COLOR_BLUE 0x5eabcf
+# define T_SIZE 32
+# define KEY_ESC 53
 
 typedef struct		s_mlx
 {
@@ -44,13 +50,8 @@ typedef struct		s_map
 	int				**grid;
 	int				height;
 	int				width;
+	int				tile;
 }					t_map;
-
-# define COLOR_RED 0xd42121
-# define COLOR_WHITE 0xFFFFFF
-# define COLOR_BLUE 0x5eabcf
-# define T_SIZE 32
-# define KEY_ESC 53
 
 t_map				parsefile(char *filename);
 void				check_values(char *value);

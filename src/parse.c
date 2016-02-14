@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 14:36:31 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/12 17:16:25 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/14 19:24:00 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_map	parsefile(char *filename)
 	while (get_next_line(fd, &line) > 0)
 	{
 		map.grid[a.x] = (int*)ft_memalloc(sizeof(int) * map.width);
+		line = ft_strtrim(line);
 		tab = ft_strsplit(line, ' ');
 		a.y = 0;
 		while (tab[a.y])

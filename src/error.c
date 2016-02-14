@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 14:03:29 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/10 14:51:30 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/14 19:22:21 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	check_values(char *value)
 {
 	if (ft_isnum(ft_strtrim(value)) == 0)
 	{
+		ft_putendl(value);
 		ft_putendl("error");
 		exit(1);
 	}

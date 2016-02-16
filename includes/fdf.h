@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/12 14:29:08 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/16 11:48:33 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ int					handle_keys(int key, void *param);
 
 //t_img				draw_grid(t_mlx fdf, t_map map);
 void	*draw_grid(t_mlx fdf, t_map map);
+void	draw_lines(t_mlx fdf, t_coord a, t_coord b, int color);
 
 #endif

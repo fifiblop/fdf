@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/16 11:48:33 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/25 16:24:39 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,21 @@
 # define T_SIZE 32
 # define KEY_ESC 53
 
-typedef struct		s_mlx
+typedef struct	s_coord
 {
-	void			*mlx_ptr;
-	void			*win_ptr;
-	unsigned int	win_w;
-	unsigned int	win_h;
-}					t_mlx;
+	int			x;
+	int			y;
+}				t_coord;
 
-typedef struct		s_img
+typedef struct	s_map
 {
-	void			*img;
-	void			*img_ptr;
-	int				endian;
-	int				bits_per_pixel;
-	int				linesize;
-}					t_img;
+	int			columns;
+	int			lines;
+	int			**parse;
+	t_coord		**print;
 
-typedef struct		s_coord
-{
-	int				x;
-	int				y;
-}					t_coord;
+}				t_map;
 
-typedef struct		s_map
-{
-	int				**grid;
-	int				height;
-	int				width;
-	int				tile;
-}					t_map;
-
-t_map				parsefile(char *filename);
-void				check_values(char *value);
-
-int					handle_keys(int key, void *param);
-
-//t_img				draw_grid(t_mlx fdf, t_map map);
-void	*draw_grid(t_mlx fdf, t_map map);
-void	draw_lines(t_mlx fdf, t_coord a, t_coord b, int color);
+void			parse(char *filename);
 
 #endif

@@ -1,113 +1,127 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/31 14:36:31 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/15 11:59:52 by pdelefos         ###   ########.fr       */
+/*   Created: 2016/02/25 14:31:54 by pdelefos          #+#    #+#             */
+/*   Updated: 2016/02/25 17:31:01 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
+#include <stdlib.h>
 #include "libft.h"
 #include "fdf.h"
 
-/*
-** Renvoi le nombre de lignes du ficher
-*/
-
-int		get_height(char *filename)
+int		get_file_nbline(char *filename)
 {
 	int		fd;
-	int		i;
+	int		nb_line;
 	char	*line;
 
-	i = 0;
 	fd = open(filename, O_RDONLY);
+	nb_line = 0;
 	while (get_next_line(fd, &line) > 0)
-		i++;
-	free(line);
+		nb_line++;
 	close(fd);
-	return (i);
+	return (nb_line);
 }
 
-/*
-** Renvoi le nombre de caracteres de la ligne
-** passe en parametre
-*/
-
-int		get_width(char *filename, int no_line)
+int		get_file_nbcolumns(char *filename, int line_nb)
 {
 	int		fd;
-	int		i;
-	int		j;
+	int		no_line;
+	int		nb_columns;
 	char	*line;
 	char	**tab;
 
-	i = 0;
-	j = 0;
-	if (no_line < 1 || no_line > get_height(filename))
-		return (0);
 	fd = open(filename, O_RDONLY);
-	while (j++ < no_line)
-		get_next_line(fd, &line);
-	tab = ft_strsplit(line, ' ');
-	free(line);
-	while (tab[i])
-		i++;
-	free(tab);
+	nb_columns = 0;
+	no_line = 0;
+	while (get_next_line(fd, &line) > 0)
+	{
+		no_line++;
+		if (no_line == line_nb)
+		{
+			tab = ft_strsplit(line, ' ');
+			while (tab[nb_columns])
+				nb_columns++;
+			free(tab);
+		}
+	}
 	close(fd);
-	return (i);
+	return (nb_columns);
 }
 
-/*
-** initialise la hauteur et alloue la map
-*/
-
-t_map	init_grid(char *filename)
+void	check_lines(char *filename)
 {
-	t_map map;
+	int		lines;
+	int		a;
+	int		nb_columns;
 
-	map.height = (int)ft_memalloc(sizeof(int));
-	map.width = (int)ft_memalloc(sizeof(int));
-	map.height = get_height(filename);
-	map.grid = (int**)ft_memalloc(sizeof(int*) * map.height);
-	return (map);
+	lines = get_file_nbline(filename);
+	nb_columns = get_file_nbcolumns(filename, 1);
+	a = 1;
+	while (a <= lines)
+		if (get_file_nbcolumns(filename, a++) != nb_columns)
+		{
+			ft_putendl("error");
+			exit(0);
+		}
 }
 
-/*
-** Parse le fichier passee en parametre
-** et le stock dans un tableau d'int
-** contenu dans une structure
-*/
-
-t_map	parsefile(char *filename)
+t_map	init_map(char *filename)
 {
 	int		fd;
 	char	*line;
 	char	**tab;
 	t_map	map;
-	t_coord	a;
+	t_coord	ind;
 
-	map = init_grid(filename);
+	map.lines = get_file_nbline(filename);
+	ft_putstr("--");
+	ft_putnbr(map.lines);
+	ft_putnl();
+	map.columns = get_file_nbcolumns(filename, 1);
+	map.parse = (int**)ft_memalloc(sizeof(int*) * map.lines);
 	fd = open(filename, O_RDONLY);
-	map.width = get_width(filename, 1);
-	a.x = 0;
-	while (get_next_line(fd, &line) > 0)
+	ind.x = 0;
+	while (ind.x < map.lines)
 	{
-		map.grid[a.x] = (int*)ft_memalloc(sizeof(int) * map.width);
-		line = ft_strtrim(line);
-		tab = ft_strsplit(line, ' ');
-		a.y = 0;
-		while (tab[a.y])
+		ind.y = 0;
+		map.parse[ind.x] = (int*)ft_memalloc(sizeof(int) * map.columns);
+		get_next_line(fd, &line);
+		tab = ft_strsplit(ft_strtrim(line), ' ');
+		while (ind.y < map.columns)
 		{
-			check_values(tab[a.y]);
-			map.grid[a.x][a.y] = ft_atoi(tab[a.y++]);
+			map.parse[ind.x][ind.y] = ft_atoi(tab[ind.y]);
+			ind.y++;
 		}
-		free(tab);
-		a.x++;
+		ind.x++;
 	}
-	close(fd);
 	return (map);
+}
+
+void	parse(char *filename)
+{
+	t_map	map;
+	t_coord ind;
+
+	check_lines(filename);
+	map = init_map(filename);
+	ind.x = 0;
+	while (ind.x < map.lines)
+	{
+		ind.y = 0;
+		while (ind.y < map.columns)
+		{
+			ft_putnbr(map.parse[ind.x][ind.y]);
+			ft_putchar(' ');
+			ind.y++;
+		}
+		ft_putnl();
+		ind.x++;
+	}
 }

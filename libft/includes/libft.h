@@ -6,7 +6,7 @@
 /*   By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 11:14:35 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/01/31 14:00:51 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/25 14:38:12 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+void				ft_putnl(void);
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
@@ -58,6 +59,7 @@ int					ft_isascii(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
+void				ft_swap(int *a, int *b);
 
 size_t				ft_strlen(const char *s);
 int					ft_strcmp(const char *s1, const char *s2);

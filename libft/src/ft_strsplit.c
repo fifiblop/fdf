@@ -6,7 +6,7 @@
 /*   By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 16:07:51 by pdelefos          #+#    #+#             */
-/*   Updated: 2015/12/08 15:31:27 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/26 12:10:14 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,24 @@
 
 static int	ft_count_wd(char const *s, char c)
 {
-	int	i;
-	int	size;
-	int	count;
+	int		i;
+	int		size;
+	int		count;
+	char	*str;
 
 	i = 0;
 	count = 0;
-	size = ft_strlen(s) - 1;
-	while (i < size - 1)
+	size = ft_strlen(s);
+	str = ft_strtrim(s);
+	while (i < size)
 	{
-		if (s[i] != c && s[i + 1] == c)
+		if (str[i] != c && str[i + 1] == c)
 			count++;
 		i++;
 	}
-	if (s[i] != c)
+	if (str[i] != c)
 		count++;
+	free(str);
 	return (count);
 }
 

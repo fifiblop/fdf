@@ -6,7 +6,7 @@
 #    By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 15:22:44 by pdelefos          #+#    #+#              #
-#    Updated: 2016/02/25 14:37:19 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/02/26 12:13:13 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ fclean: clean
 re: fclean all
 
 norme:
-	norminette $(SRC_NAME)
-	norminette $(INC)libft.h
+	norminette $(SRC)
+	norminette $(INC_PATH)/libft.h
 
 .PHONY: all clean fclean re norme

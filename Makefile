@@ -6,7 +6,7 @@
 #    By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/29 14:39:00 by pdelefos          #+#    #+#              #
-#    Updated: 2016/02/25 14:42:58 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/02/26 16:25:17 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,10 @@ NAME = fdf
 SRC_PATH = src
 SRC_NAME = main.c \
 		   parse.c \
+		   error.c \
+		   keys.c \
+		   calc.c \
+		   draw.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

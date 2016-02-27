@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 15:55:43 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/27 11:23:04 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/27 12:33:08 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,11 @@ t_img	draw(t_mlx *mlx, t_map *map)
 		ind.x = 0;
 		while (ind.x < map->columns - 1)
 		{
-			/*put_pixel_to_image(&img, map->print[ind.y][ind.x].y, map->print[ind.y][ind.x].x, 0x008080);*/
-			draw_lines(&img, map->print[ind.y][ind.x], map->print[ind.y][ind.x + 1], 0x008080);
+			if (map->print[ind.y][ind.x].x < mlx->width &&
+				map->print[ind.y][ind.x + 1].x < mlx->width &&
+				map->print[ind.y][ind.x].y < mlx->height &&
+				map->print[ind.y][ind.x + 1].y < mlx->height)	
+				draw_lines(&img, map->print[ind.y][ind.x], map->print[ind.y][ind.x + 1], 0x008080);
 			ind.x++;
 		}
 		draw_lines(&img, map->print[ind.y][map->columns - 1], map->print[ind.y + 1][map->columns - 1], 0x008080);
@@ -91,7 +94,11 @@ t_img	draw(t_mlx *mlx, t_map *map)
 		ind.y = 0;
 		while (ind.y < map->lines - 1)
 		{
-			draw_lines(&img, map->print[ind.y][ind.x], map->print[ind.y + 1][ind.x], 0x008080);
+			if (map->print[ind.y][ind.x].x < mlx->width &&
+				map->print[ind.y + 1][ind.x].x < mlx->width &&
+				map->print[ind.y][ind.x].y < mlx->height &&
+				map->print[ind.y + 1][ind.x].y < mlx->height)	
+				draw_lines(&img, map->print[ind.y][ind.x], map->print[ind.y + 1][ind.x], 0x008080);
 			ind.y++;
 		}
 		draw_lines(&img, map->print[map->lines - 1][ind.x], map->print[map->lines - 1][ind.x + 1], 0x008080);

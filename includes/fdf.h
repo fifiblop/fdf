@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/26 17:54:31 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/12 18:37:34 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,13 @@ int				get_file_nbcolumns(char *filename, int line_nb);
 ** calc.c
 */
 
-void			calc(t_mlx *mlx, t_map *map);
+void			calc(t_mlx *mlx, t_map *mapi);
+
+/*
+** draw.c
+*/
+
+void			draw_lines(t_img *img, t_coord a, t_coord b, int color);
 
 /*
 ** draw.c

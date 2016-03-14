@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 14:31:51 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/03/11 15:18:38 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/14 18:00:09 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ t_mlx	init_mlx(int width, int height, char *title)
 
 int		main(int ac, char **av)
 {
-	t_mlx mlx;
-	t_map map;
-	t_img img;
+	t_mlx	mlx;
+	t_map	map;
+	t_img	img;
 
 	if (ac == 2)
 	{
-		mlx = init_mlx(1000, 1000, "fdf");
+		mlx = init_mlx(1000, 1000, av[1]);
 		map = parse(av[1]);
 		calc(&mlx, &map);
 		img = draw(&mlx, &map);

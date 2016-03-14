@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/03/12 18:37:34 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/14 18:42:35 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,22 @@ typedef struct	s_line
 	t_coord		pt;
 }				t_line;
 
+typedef struct	s_fix
+{
+	int			c_w;
+	int			c_h;
+	int			h;
+	int			t;
+}				t_fix;
+
+typedef struct	s_edge
+{
+	t_coord		t;
+	t_coord		b;
+	t_coord		l;
+	t_coord		r;
+}				t_edge;
+
 /*
 ** parse.c
 */
@@ -73,13 +89,19 @@ int				get_file_nbcolumns(char *filename, int line_nb);
 void			calc(t_mlx *mlx, t_map *mapi);
 
 /*
+** set_image.c
+*/
+
+t_fix			set_image(t_mlx *mlx, t_map *map);
+
+/*
 ** draw.c
 */
 
 void			draw_lines(t_img *img, t_coord a, t_coord b, int color);
 
 /*
-** draw.c
+** grid.c
 */
 
 t_img			draw(t_mlx *mlx, t_map *map);

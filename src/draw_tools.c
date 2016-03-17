@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 15:55:43 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/03/12 18:38:54 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/16 14:50:17 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	draw_lines(t_img *img, t_coord a, t_coord b, int color)
 	while (line.pt.x <= b.x)
 	{
 		if (line.steep == 1)
-			put_pixel_to_image(img, line.pt.y, line.pt.x, color);
-		else
 			put_pixel_to_image(img, line.pt.x, line.pt.y, color);
+		else
+			put_pixel_to_image(img, line.pt.y, line.pt.x, color);
 		line.error += line.derror;
 		if (line.error > line.dx)
 		{

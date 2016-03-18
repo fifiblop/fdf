@@ -6,7 +6,7 @@
 #    By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/29 14:39:00 by pdelefos          #+#    #+#              #
-#    Updated: 2016/03/16 12:05:54 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/03/18 14:31:35 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_NAME = main.c \
 		   calc.c \
 		   draw_tools.c \
 		   grid.c \
+		   move.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

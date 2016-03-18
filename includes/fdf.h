@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 15:05:14 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/03/17 18:03:39 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/18 14:40:57 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_mlx
 	void		*win;
 	int			width;
 	int			height;
+	char		*file;
 }				t_mlx;
 
 typedef struct	s_img
@@ -58,11 +59,13 @@ typedef struct	s_line
 	t_coord		pt;
 }				t_line;
 
-typedef struct	s_tile
+typedef struct	s_src
 {
-	int			tile_width;
-	int			tile_height;
-}				t_tile;
+	t_mlx		*mlx;
+	t_map		*map;
+	t_img		*img;
+	t_coord		*mov;
+}				t_src;
 
 /*
 ** parse.c
@@ -76,7 +79,7 @@ int				get_file_nbcolumns(char *filename, int line_nb);
 ** calc.c
 */
 
-void			calc(t_mlx *mlx, t_map *mapi);
+void			calc(t_mlx *mlx, t_map *map, t_coord *mov);
 
 /*
 ** draw_tools.c
@@ -102,6 +105,14 @@ void			check_values(char	**tab);
 ** keys.c
 */
 
-int				key_handler(int key_pressed, void *param);
+int				key_handler(int key_pressed, t_src *src);
 
+/*
+** move.c
+*/
+
+void			move_up(t_mlx *mlx, t_map *map, t_img *img, t_coord *mov);
+void			move_down(t_mlx *mlx, t_map *map, t_img *img, t_coord *mov);
+void			move_right(t_mlx *mlx, t_map *map, t_img *img, t_coord *mov);
+void			move_left(t_mlx *mlx, t_map *map, t_img *img, t_coord *mov);
 #endif

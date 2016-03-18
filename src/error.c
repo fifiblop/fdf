@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 12:35:13 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/27 15:13:24 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/18 11:56:41 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,17 @@ void	check_lines(char *filename)
 	int		nb_columns;
 
 	lines = get_file_nbline(filename);
-	if (lines == 0)
+	if (lines < 2)
 	{
 		ft_putendl("error");
 		exit(0);
 	}
 	nb_columns = get_file_nbcolumns(filename, 1);
+	if (nb_columns < 2)
+	{
+		ft_putendl("error");
+		exit(0);
+	}
 	a = 1;
 	while (a <= lines)
 		if (get_file_nbcolumns(filename, a++) != nb_columns)

@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 14:31:51 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/03/18 15:20:46 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/19 15:59:26 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_mlx	init_mlx(int width, int height, char *title, char *file)
 	return (mlx);
 }
 
-t_src	init_src(t_mlx *mlx, t_map *map, t_img *img, t_coord *mov)
+t_src	init_src(t_mlx *mlx, t_map *map, t_img *img, t_mov *mov)
 {
 	t_src	src;
 
@@ -37,20 +37,29 @@ t_src	init_src(t_mlx *mlx, t_map *map, t_img *img, t_coord *mov)
 	return (src);
 }
 
+t_mov	init_mov(void)
+{
+	t_mov mov;
+
+	mov.dir.x = 0;
+	mov.dir.y = 0;
+	mov.haut = 1;
+	return (mov);
+}
+
 int		main(int ac, char **av)
 {
 	t_src	src;
 	t_mlx	mlx;
 	t_map	map;
 	t_img	img;
-	t_coord	mov;
+	t_mov	mov;
 
 	if (ac == 2)
 	{
 		map = parse(av[1]);
 		mlx = init_mlx(1000, 1000, "FDF", av[1]);
-		mov.x = 0;
-		mov.y = 0;
+		mov = init_mov();
 		calc(&mlx, &map, &mov);
 		img = draw(&mlx, &map);
 		src = init_src(&mlx, &map, &img, &mov);

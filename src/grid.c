@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 18:36:17 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/03/18 14:03:34 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/19 11:22:32 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 
 #include "libft.h"
 
-void	draw_vertical_lines(t_mlx *mlx, t_map *map, t_img *img)
+void	draw_vertical_lines(t_map *map, t_img *img)
 {
 	t_coord ind;
 	int		teal;
 
 	teal = 0x008080;
 	ind.y = 0;
-	(void)mlx;
 	while (ind.y < map->lines - 1)
 	{
 		ind.x = 0;
@@ -38,14 +37,13 @@ void	draw_vertical_lines(t_mlx *mlx, t_map *map, t_img *img)
 	}
 }
 
-void	draw_horizontal_lines(t_mlx *mlx, t_map *map, t_img *img)
+void	draw_horizontal_lines(t_map *map, t_img *img)
 {
 	t_coord ind;
 	int		teal;
 
 	teal = 0x008080;
 	ind.x = 0;
-	(void)mlx;
 	while (ind.x < map->columns - 1)
 	{
 		ind.y = 0;
@@ -69,7 +67,7 @@ t_img	draw(t_mlx *mlx, t_map *map)
 	img.size_line = mlx->width;
 	img.mlx_width = mlx->width;
 	img.addr = mlx_get_data_addr(img.ptr, &img.bpp, &img.size_line, &img.end);
-	draw_vertical_lines(mlx, map, &img);
-	draw_horizontal_lines(mlx, map, &img);
+	draw_vertical_lines(map, &img);
+	draw_horizontal_lines(map, &img);
 	return (img);
 }

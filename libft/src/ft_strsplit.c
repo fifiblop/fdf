@@ -6,7 +6,7 @@
 /*   By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 16:07:51 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/02/26 12:10:14 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/22 17:41:37 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ static int	ft_len_wd(char const *s, char c)
 char		**ft_strsplit(char const *s, char c)
 {
 	char	**tab;
+	char	*str;
 	int		i;
 	int		size;
 
-	if (!(tab = (char**)malloc(sizeof(char*) * (ft_count_wd(s, c) + 1))))
-		return (NULL);
+	tab = (char**)ft_memalloc(sizeof(char*) * (ft_count_wd(s, c) + 1));
 	i = 0;
 	while (*s)
 	{
@@ -65,7 +65,11 @@ char		**ft_strsplit(char const *s, char c)
 		else
 		{
 			size = ft_len_wd(s, c);
-			tab[i++] = ft_strsub(s, 0, size);
+			str = ft_strsub(s, 0, size);
+			tab[i] = (char*)ft_memalloc(sizeof(char) * (ft_strlen(str) + 1));
+			tab[i] = ft_strcpy(tab[i], str);
+			i++;
+			free(str);
 			s = s + size;
 		}
 	}

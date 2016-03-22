@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 14:31:54 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/03/12 14:20:39 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/22 17:39:45 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "fdf.h"
+
+void	free_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
+}
 
 int		get_file_nbline(char *filename)
 {
@@ -51,7 +61,7 @@ int		get_file_nbcolumns(char *filename, int line_nb)
 			tab = ft_strsplit(line, ' ');
 			while (tab[nb_columns])
 				nb_columns++;
-			free(tab);
+			free_tab(tab);
 		}
 		free(line);
 	}
@@ -82,7 +92,7 @@ void	init_map(char *filename, t_map *map)
 			ind.x++;
 		}
 		free(line);
-		free(tab);
+		free_tab(tab);
 		ind.y++;
 	}
 	close(fd);

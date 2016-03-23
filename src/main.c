@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 14:31:51 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/03/22 17:42:18 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/03/23 14:07:57 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		main(int ac, char **av)
 		src = init_src(&mlx, &map, &img, &mov);
 		mlx_put_image_to_window(mlx.ptr, mlx.win, img.ptr, 0, 0);
 		mlx_string_put(mlx.ptr, mlx.win, 10, 10, 0xffffff, mlx.file);
-		mlx_key_hook(mlx.win, key_handler, &src);
+		mlx_hook(mlx.win, 2, 0, key_handler, &src);
 		mlx_loop(mlx.ptr);
 	}
 	ft_putnl();

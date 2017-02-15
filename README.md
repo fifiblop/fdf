@@ -12,7 +12,7 @@ make
 
 ##executer le programme
 ```
-./bsq maps/map_20_20_4
+./fdf maps/42.fdf
 ```
 
 ![alt text](ressources/output.png "output")

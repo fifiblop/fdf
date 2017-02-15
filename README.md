@@ -1,6 +1,6 @@
 # fdf
 
-Ce projet crée une representation en fil de fer d'une carte recu en paramètre, il utilise la miniLibx (librairie graphique de 42)
+Ce projet crée une representation en fil de fer d'une carte reçu en paramètre, il utilise la miniLibx (librairie graphique de 42)
 
 ![alt text](ressources/map.png "map")
 
